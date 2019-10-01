@@ -87,21 +87,7 @@ class MainWindow(wx.Frame):
 		self.graf_handles['gang']['static'] = wx.StaticBitmap(self,wx.ID_ANY,self.graf_handles['gang']['n'].ConvertToBitmap())
 		grid.Add(self.graf_handles['gang']['static'] , pos=(1,3))
 		#####GRAFIK LOAD ########
-		'''
-		############weg machen###########
-		self.handle = wx.Image()
-		self.handle.LoadFile('zahl/0.jpg')
-		#self.handle = self.handle.Resize((50,100),(0,0))
-		self.handle = self.handle.Scale(50,100)
-		self.handle1 = wx.Image()
-		self.handle1.LoadFile('zahl/1.jpg')
-		#self.handle1 = self.handle1.Resize((50,100),(0,0))
-		self.handle1 = self.handle1.Scale(50,100)
-		
-		self.ht1 = wx.StaticBitmap(self,wx.ID_ANY,self.handle.ConvertToBitmap())
-		grid.Add(self.ht1, pos=(1,1))
-		##########wegmachen ###############
-		'''
+
 		
 		self.tester = wx.StaticText(self, label='System Speed')
 		self.tester.SetForegroundColour((255,255,255))
@@ -110,23 +96,7 @@ class MainWindow(wx.Frame):
 		self.start_stop_bt = wx.Button(self,wx.ID_ANY, "Start") ##Start Stop Button
 		grid.Add(self.start_stop_bt, pos=(0,1))
 		#########################
-		'''
-		self.array_steer = {}
-		row = 0
-		grid3 = wx.GridBagSizer(hgap=100, vgap=1)
-		
-		while row <=100:
-			self.array_steer[row] = wx.StaticText(self, label="",size=(50,1))
-			grid3.Add(self.array_steer[row],pos=(row,1))
-			tt = row * 2
-			gg = wx.Colour(1,tt,1)
-			#grid3.SetDefaultCellBackgroundColour(gg)
-			
-			self.array_steer[row].SetOwnBackgroundColour(gg)
-			#self.array_steer[row].SetBackgroundColour(gg)
-			row += 1
-		grid.Add(grid3, pos=(1,3))
-		'''
+
 		#################
 		row = 2
 		column = 0
@@ -183,18 +153,6 @@ class MainWindow(wx.Frame):
 	
 	def on_off (self,e):
 		
-		'''
-		#alte PDAL anzeige 
-		t = 1
-		
-		self.ht1.SetBitmap(self.handle1.ConvertToBitmap())
-		print (dir (self.ht1)) 
-		while t <= 100:
-			gg = wx.Colour(0,0,0)
-			#print (t)
-			self.array_steer[t].SetOwnBackgroundColour(gg)
-			t +=1
-		'''
 		if self.inter == 0:
 			self.out_dispatcher.put(1)#einschalten
 			self.abfragetimer.Start(20)
@@ -316,71 +274,4 @@ if __name__ == '__main__':
 	if stacker['udp_proc'].is_alive() == True:
 		stacker['udp_proc'].terminate()
 	
-	'''
-	dt = datetime.now()
-	print (dir (dt))
-	wc = 0
-	Sec_now = dt.second
-	sec = {}
-	loopc = 0
-	while True:
-		dt = datetime.now()
-		#print (dt.second)
-		if Sec_now != dt.second:
-			calc = 0
-			loopc +=1 
-			for x in sec:
-				if x != 0:
-					new = x - 1
-					calc += sec[x] - sec[new]
-			
-			mstime = round(round(calc / wc)/1000000,2)
-			data = "FPS: {}, React: {}".format(wc,mstime)
-			print (data)
-			
-			sec = {}
-			Sec_now = dt.second
-			wc = 0
-		
-		sec[wc] = dt.microsecond
-			
-		#print (sec)
-		
-		wc += 1
-		
-		time.sleep(0.02)
-		
-		if loopc >= 10:
-			break
 	
-	#time.sleep(1)
-	'''
-	
-	'''
-	lopper = 0
-	on = 1
-	stacker['disp1'].put(1)#einschalten
-	time.sleep(1)
-	while True:
-		lopper += 1
-		time.sleep(0.5)
-		#print ('main:LOOP')
-		if stacker['disp2'].empty() != True:
-			#print('##################')
-			if on == 1:
-				#Print('MASTER PRITN')
-				h = stacker['disp2'].get()
-				
-				print (round(h[1],2))
-			else:
-				
-				if stacker['disp2'].get() == 'ok':
-					#print ('master halt')
-					break
-		
-		if lopper == 20:
-			#print ('CLOSE MAIN')
-			on = 0
-			stacker['disp1'].put('off')#runter fahren
-
-'''
