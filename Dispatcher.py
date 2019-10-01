@@ -5,7 +5,7 @@ from multiprocessing import Process, Queue, cpu_count, current_process, freeze_s
 
 import os
 import wx
-from lib2to3.tests.data.infinite_recursion import off_t
+
 
 
 
